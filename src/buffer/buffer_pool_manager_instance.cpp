@@ -59,6 +59,7 @@ bool BufferPoolManagerInstance::FlushPgImp(page_id_t page_id) {
   if (it != page_table_.end()) {
     char *page_data = pages_[it->second].GetData();
     disk_manager_->WritePage(page_id, page_data);
+    pages_[it->second].is_dirty_ = false;
     return true;
   }
   return false;
